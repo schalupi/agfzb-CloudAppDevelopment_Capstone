@@ -39,7 +39,7 @@
               </li>
             {% else %}
               <li class="nav-item">
-                <form class="form-inline" action="/djangoapp/login.html/" method="post">
+                <form class="form-inline" action="/djangoapp/login" method="post">
                   {% csrf_token %}
                   <div class="form-group">
                     <input type="text" class="form-control mr-sm-2" name="username" placeholder="Username">

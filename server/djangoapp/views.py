@@ -15,32 +15,65 @@ logger = logging.getLogger(__name__)
 
 
 # Create your views here.
-
+def index(request):
+    return render(request, 'index.html')
 
 # Create an `about` view to render a static about page
-def about(request):
-    context = {}
-    if request.method == "GET":
-        return render(request, 'djangoapp/about.html', context)
+def about_us(request):
+    return render(request, 'about_us.html')
 
 
 # Create a `contact` view to return a static contact page
-def contact(request):
-    context = {}
-    if request.method == "GET":
-        return render(request, 'djangoapp/contact.html', context)
+def contact_us(request):
+    return render(request, 'contact_us.html')
 
 # Create a `login_request` view to handle sign in request
-# def login_request(request):
-# ...
+def login_request(request):
+    return render(request, 'login.html')
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('djangoapp/login.html')
+        else:
+            return render(request, 'djangoapp/login.html', {'error': 'Invalid username or password.'})
+    else:
+        return render(request, 'djangoapp/login.html')
 
 # Create a `logout_request` view to handle sign out request
 # def logout_request(request):
 # ...
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+
 
 # Create a `registration_request` view to handle sign up request
 # def registration_request(request):
 # ...
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return redirect('dealerships')
+        else:
+            return render(request, 'signup.html', {'form': form})
+    else:
+        form = UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
+
+
+
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
