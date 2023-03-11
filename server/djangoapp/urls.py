@@ -19,7 +19,7 @@ urlpatterns = [
 
     # path for registration
 
-     path('signup/', views.signup_view, name='signup'),
+     path('registration/', views.registration_view, name='registration'),
 
     # path for login
 

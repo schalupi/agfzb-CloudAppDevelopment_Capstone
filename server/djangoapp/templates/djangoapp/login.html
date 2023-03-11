@@ -56,11 +56,25 @@
         </div>
       </nav>
       
+     
       
+      <form class="form-inline" action="/djangoapp/login/" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="text" class="form-control mr-sm-2" name="username" placeholder="Username">
+          <input type="password" class="form-control mr-sm-2" name="password" placeholder="Password">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
+        </div>
+      </form>
 
     <!--Add a dealer table here -->
 
+
+
+
     </body>
+
+
 
     <footer class="bg-dark py-4">
         <div class="container">
